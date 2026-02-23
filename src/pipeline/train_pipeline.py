@@ -2,7 +2,7 @@ from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.data_retrieval import DataRetrieval
 from langchain_ollama import OllamaEmbeddings
-from langchain_core.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 
 if __name__=="__main__":
     ingestionObj = DataIngestion()
@@ -18,5 +18,5 @@ if __name__=="__main__":
     )
     print("In Retrieval")
     retrievalObj = DataRetrieval(vector_db=db, splitted_docs=splitted_docs)
-    print(retrievalObj.retrieveData(user_query='Late Penalty?'))
+    print(retrievalObj.retrieveData(user_query="Late Penalty?"))
 

@@ -35,7 +35,7 @@ class DataRetrieval:
             rewrite_prompt = load_prompt(r'C:\Projects\artifacts\rewrite_prompt.json')
             logging.info("Rewriting and Query prompts retrieved successfully")
             rewriting_model = ChatOllama(model='gemma3:270m')
-            model = ChatOllama(model='tinyllama:latest')
+            model = ChatOllama(model='tinyllama:1.1b')
             document_chain = create_stuff_documents_chain(llm=model, prompt=query_prompt)
             rewrite_chain = rewrite_prompt | rewriting_model | StrOutputParser()
             rewritten_query = getImprovedQuery(rewrite_chain, user_query)
@@ -43,7 +43,7 @@ class DataRetrieval:
             retrieval_chain = create_retrieval_chain(self.hybrid_retriever, document_chain)
             logging.info("Retrieval chain initialized successfully")
             result = retrieval_chain.invoke({
-                "input": rewritten_query    
+                "input": user_query
             })
             return result['answer']
         except Exception as e:
