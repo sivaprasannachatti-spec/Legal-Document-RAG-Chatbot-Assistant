@@ -8,4 +8,9 @@ fastapi
 uvicorn
 pydantic
 faiss-cpu
+fastapi
+uvicorn
+supabase
+dotenv
+python-jose
 # -e .

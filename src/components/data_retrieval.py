@@ -29,7 +29,7 @@ class DataRetrieval:
         except Exception as e:
             raise CustomException(e, sys)
         
-    def retrieveData(self, user_query):
+    def retrieveData(self, user_query, chat_history=None):
         try:
             query_prompt = load_prompt(r'C:\Projects\artifacts\query_prompt.json')
             rewrite_prompt = load_prompt(r'C:\Projects\artifacts\rewrite_prompt.json')
@@ -43,7 +43,8 @@ class DataRetrieval:
             retrieval_chain = create_retrieval_chain(self.hybrid_retriever, document_chain)
             logging.info("Retrieval chain initialized successfully")
             result = retrieval_chain.invoke({
-                "input": user_query
+                "input": user_query,
+                "chat_history": chat_history if chat_history else []
             })
             return result['answer']
         except Exception as e:

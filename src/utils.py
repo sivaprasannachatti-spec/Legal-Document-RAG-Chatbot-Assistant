@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import json
+import pickle
 
 from src.exception import CustomException
 from src.logger import logging
@@ -61,8 +62,12 @@ def getFinalChunks(docs):
 
 def saveObject(path, data):
     try:
-        with open(path, 'w') as f:
-            json.dump(data, f)
+        if(path.endswith(".json")):
+            with open(path, 'w') as f:
+                json.dump(data, f)
+        elif(path.endswith(".pkl")):
+            with open(path, 'wb') as f:
+                pickle.dump(data, f)
     except Exception as e:
         raise CustomException(e, sys)
 
@@ -73,5 +78,18 @@ def getImprovedQuery(chain, query):
             "input": query
         })
         return rewritten_query
+    except Exception as e:
+        raise CustomException(e, sys)
+
+def loadData(path):
+    try:
+        if(path.endswith(".pkl")):
+            with open(path, "rb") as f:
+                docs = pickle.load(f)
+            return docs
+        elif(path.endswith(".json")):
+            with open(path, "rb") as f:
+                data = json.load(f)
+            return data
     except Exception as e:
         raise CustomException(e, sys)
