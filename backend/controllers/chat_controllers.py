@@ -3,8 +3,9 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 from backend.models.DB_Client import supabase
-from fastapi import HTTPException, JSONResponse
-from backend.services.chat_services import getChats, getChat, performChatting
+from fastapi import HTTPException
+from fastapi.responses import JSONResponse
+from backend.services.chat_services import getChat, performChatting
 from langchain_core.prompts import load_prompt
 from langchain_ollama import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
@@ -16,16 +17,15 @@ def getAllChats(request):
             raise HTTPException(status_code=404, detail='The specified user is not found')
         response = (
             supabase.table("chats")
-            .select("chat_id")
+            .select("chat_title")
             .eq("user_id", id)
+            .order("created_at", desc=False)
             .execute()
         )
         if not response.data:
-            raise HTTPException(status_code=404, detail='No chats found')
-        chats = getChats(response.data)
-        if not chats:
-            raise HTTPException(status_code=500, detail='Something went wrong while retrieving the chats')
-        return JSONResponse(status_code=200, content={"message": "All chats retrieved successfully", "chats": chats})
+            return JSONResponse(status_code=200, content={"message": "No chats yet", "chats": []})
+        titles = [chat["chat_title"] for chat in response.data]
+        return JSONResponse(status_code=200, content={"message": "All chats retrieved successfully", "chats": titles})
     except Exception as e:
         raise CustomException(e, sys)
 

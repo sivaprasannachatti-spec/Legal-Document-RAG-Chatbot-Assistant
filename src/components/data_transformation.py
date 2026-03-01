@@ -46,7 +46,7 @@ class DataTransformation:
             logging.info("Splitted documents stored successfully")
             vector_db.save_local("faiss_index")   
             saveObject(path=self.transformationConfig.docs_path, data=splitted_docs)
-            return splitted_docs
+            return splitted_docs, vector_db
         except Exception as e:
             raise CustomException(e, sys)
 

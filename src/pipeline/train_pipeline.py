@@ -6,6 +6,7 @@ from src.components.data_retrieval import DataRetrieval
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import FAISS
 from src.utils import saveObject
+from src.evaluation.data_preparation import DataPreparation
 
 if __name__=="__main__":
     ingestionObj = DataIngestion()
@@ -13,13 +14,11 @@ if __name__=="__main__":
     docs = ingestionObj.loadData()
     transformationObj = DataTransformation()
     print("In Transformation")
-    splitted_docs = transformationObj.transformData(docs)
-    db = FAISS.load_local(
-        "faiss_index",
-        OllamaEmbeddings(model='nomic-embed-text:latest'),
-        allow_dangerous_deserialization=True   
-    )
+    splitted_docs, db = transformationObj.transformData(docs)
     print("In Retrieval")
-    retrievalObj = DataRetrieval(vector_db=db, splitted_docs=splitted_docs)
-    print(retrievalObj.retrieveData(user_query="Late Penalty?"))
+    evaluation_obj = DataPreparation()
+    print("In evaluation")
+    print(evaluation_obj.prepareData(docs=splitted_docs))
+    # retrievalObj = DataRetrieval(vector_db=db, splitted_docs=splitted_docs)
+    # print(retrievalObj.retrieveData(user_query="Late Penalty?", chat_history=[]))
 

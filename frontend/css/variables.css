@@ -1,0 +1,126 @@
+/* ============================================
+   DESIGN TOKENS & CSS VARIABLES
+   Deep Black Premium Theme — LegalAI
+   ============================================ */
+
+:root {
+  /* ---- Brand Colors ---- */
+  --color-primary: #10A37F;
+  --color-primary-light: #1ED4A3;
+  --color-primary-dark: #0D8A6A;
+  --color-primary-glow: rgba(16, 163, 127, 0.2);
+  --color-primary-subtle: rgba(16, 163, 127, 0.08);
+
+  --color-accent: #5E9EFF;
+  --color-accent-light: #7DB4FF;
+  --color-accent-dark: #4080E0;
+  --color-accent-glow: rgba(94, 158, 255, 0.15);
+
+  /* ---- Neutrals (True Black) ---- */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0A0A0A;
+  --color-bg-tertiary: #111111;
+  --color-bg-card: rgba(10, 10, 10, 0.9);
+  --color-bg-hover: rgba(255, 255, 255, 0.04);
+  --color-bg-glass: rgba(0, 0, 0, 0.8);
+  --color-bg-elevated: #141414;
+
+  --color-surface: #1A1A1A;
+  --color-surface-hover: #222222;
+  --color-surface-active: #2A2A2A;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.05);
+  --color-border-medium: rgba(255, 255, 255, 0.1);
+
+  /* ---- Text ---- */
+  --color-text-primary: #ECECF1;
+  --color-text-secondary: #B4B4C0;
+  --color-text-muted: #6E6E80;
+  --color-text-accent: #1ED4A3;
+  --color-text-inverse: #000000;
+
+  /* ---- Status ---- */
+  --color-success: #10A37F;
+  --color-warning: #F5A623;
+  --color-error: #EF4444;
+  --color-info: #5E9EFF;
+
+  /* ---- Typography ---- */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: 3.5rem;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-wide: 0.05em;
+
+  /* ---- Spacing ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 16px 50px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 20px var(--color-primary-glow);
+  --shadow-glow-strong: 0 0 40px var(--color-primary-glow), 0 0 80px rgba(16, 163, 127, 0.08);
+  --shadow-glow-accent: 0 0 20px var(--color-accent-glow);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  /* ---- Transitions ---- */
+  --transition-fast: 120ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 380ms ease;
+  --transition-spring: 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Layout ---- */
+  --sidebar-width: 260px;
+  --header-height: 56px;
+  --chat-max-width: 780px;
+  --content-max-width: 1100px;
+
+  /* ---- Z-index ---- */
+  --z-sidebar: 100;
+  --z-header: 200;
+  --z-modal-overlay: 500;
+  --z-modal: 600;
+  --z-toast: 900;
+}

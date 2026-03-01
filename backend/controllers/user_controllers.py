@@ -45,21 +45,25 @@ def handleLoginUser(user, response):
             "exp": datetime.datetime.utcnow() + datetime.timedelta(days=36500)
         }
         token = createToken(payload=payload, key=key, algorithm=algorithm)
-        response.set_cookie(key="access_token", value=token, httponly=True)
-        return JSONResponse(status_code=200, content={"message": "User logged in successfully"})
+        # Set the cookie on the SAME response object we return
+        json_response = JSONResponse(status_code=200, content={"message": "User logged in successfully", "email": user["email"]})
+        json_response.set_cookie(
+            key="access_token",
+            value=token,
+            httponly=True,
+            max_age=30 * 24 * 60 * 60,  # 30 days in seconds
+            samesite="lax"
+        )
+        return json_response
     except Exception as e:
         raise CustomException(e, sys)
 
 def handleLogoutUser(request, response):
     try:
-        (
-            supabase.table("users")
-            .delete()
-            .eq("user_id", request.state.user["user_id"])
-            .execute()
-        )
-        response.delete_cookie(key="access_token")
-        return JSONResponse(status_code=201, content={"message": "User logged of successfully"})
+        # Only clear the cookie — do NOT delete the user from the database
+        json_response = JSONResponse(status_code=200, content={"message": "User logged out successfully"})
+        json_response.delete_cookie(key="access_token")
+        return json_response
     except Exception as e:
         raise CustomException(e, sys)
     

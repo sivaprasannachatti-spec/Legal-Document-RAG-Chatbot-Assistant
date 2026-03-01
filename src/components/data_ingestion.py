@@ -19,7 +19,7 @@ class DataIngestion:
             loader_kwargs={'encoding': 'utf-8'}
             )
             logging.info("Loader initialized successfully")
-            docs = loader.load()
+            docs = loader.lazy_load()
             logging.info("All documents loaded successfully")
             return docs
         except Exception as e:

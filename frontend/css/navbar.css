@@ -1,0 +1,141 @@
+/* ============================================
+   NAVBAR — Premium Dark
+   ============================================ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-8);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border-bottom: 1px solid var(--color-border-light);
+    z-index: var(--z-header);
+    transition: background var(--transition-base);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.navbar-brand-icon {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    box-shadow: var(--shadow-glow);
+    transition: all var(--transition-base);
+}
+
+.navbar-brand:hover .navbar-brand-icon {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-glow-strong);
+}
+
+.navbar-brand-text {
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+.navbar-brand-text span {
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.navbar-link {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    letter-spacing: 0;
+}
+
+.navbar-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-hover);
+}
+
+.navbar-link.active {
+    color: var(--color-primary-light);
+}
+
+.navbar-btn-signup {
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-btn-signup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.navbar-btn-signup:hover {
+    background: var(--color-primary-dark);
+    box-shadow: var(--shadow-glow);
+}
+
+.navbar-btn-signup:hover::before {
+    opacity: 1;
+}
+
+.navbar-separator {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border-medium);
+    margin: 0 var(--space-2);
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 0 var(--space-4);
+    }
+
+    .navbar-link .link-label {
+        display: none;
+    }
+}

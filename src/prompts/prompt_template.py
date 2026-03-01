@@ -8,12 +8,13 @@ from src.exception import CustomException
 from src.logger import logging
 from dataclasses import dataclass
 from src.utils import saveObject
-
+from langchain_classic.output_parsers import StructuredOutputParser, ResponseSchema
 @dataclass
 class PromptTemplateConfig:
     rewrite_path = os.path.join("artifacts", "rewrite_prompt.json")
     query_path = os.path.join("artifacts", "query_prompt.json")
     title_path = os.path.join("artifacts", "title_prompt.json")
+    evaluation_path = os.path.join("artifacts", "evaluation_prompt.json")
 
 class PrompTemplate:
     def __init__(self):
@@ -91,12 +92,34 @@ Rules:
 
 Title:""")
         ])
+            evaluation_prompt = ChatPromptTemplate([
+                ('system', """
+You are an helpful AI assistant. You generate the evaluation data for legal document QA system.
+From the contract section below:
+
+1. Generate 2 factual questions.
+2. Provide exact answers strictly from the text.
+3. Do not invent anything.
+
+Answers must be directly taken from the text.
+
+Return a JSON object with key "qa_pairs".
+
+Section:
+{chunk}
+                 
+{format_instructions}
+"""),
+
+            ])
             rewrite_data = {"template": rewrite_prompt.messages[0].prompt.template}
             query_data = {"template": query_prompt.messages[0].prompt.template}
             title_data = {"template": title_prompt.messages[0].prompt.template}
+            evaluation_data = {"template": evaluation_prompt.messages[0].prompt.template}
             saveObject(path=self.templateConfig.rewrite_path, data=rewrite_data)
             saveObject(path=self.templateConfig.query_path, data=query_data)
             saveObject(path=self.templateConfig.title_path, data=title_data)
+            saveObject(path=self.templateConfig.evaluation_path, data=evaluation_data)
         except Exception as e:
             raise CustomException(e, sys)
 

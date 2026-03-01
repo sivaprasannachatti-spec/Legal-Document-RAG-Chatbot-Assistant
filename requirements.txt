@@ -13,4 +13,6 @@ uvicorn
 supabase
 dotenv
 python-jose
+langchain-groq
+ragas
 # -e .

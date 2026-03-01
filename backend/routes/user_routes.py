@@ -32,7 +32,7 @@ def login(user: Login, response: Response):
         raise CustomException(e, sys)
 
 @user_router.delete("/logout", dependencies=[Depends(verifyJWT)])
-def logout(user: Login, request: Request, response: Response):
+def logout(request: Request, response: Response):
     try:
         return handleLogoutUser(request=request, response=response)
     except Exception as e:
@@ -42,5 +42,14 @@ def logout(user: Login, request: Request, response: Response):
 def getUser(email: str):
     try:
         return getUserDetails(email=email)
+    except Exception as e:
+        raise CustomException(e, sys)
+
+@user_router.get("/me", dependencies=[Depends(verifyJWT)])
+def checkSession(request: Request):
+    """Check if the user's JWT cookie is still valid. Returns user info."""
+    try:
+        user = request.state.user
+        return {"authenticated": True, "email": user["email"]}
     except Exception as e:
         raise CustomException(e, sys)

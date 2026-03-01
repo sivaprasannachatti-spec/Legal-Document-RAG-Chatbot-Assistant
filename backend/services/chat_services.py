@@ -4,23 +4,23 @@ from src.exception import CustomException
 from src.logger import logging
 from backend.models.DB_Client import supabase
 from fastapi import HTTPException
-from backend.app import retrievalObj
+from backend.dependencies import retrievalObj
 
 def getChats(chat_ids):
     try:
         chats = {}
         for chat in chat_ids:
-            for k in chat.keys():
-                response = (
-                    supabase.table("messages")
-                    .select("role, content")
-                    .eq("chat_id", chat.get(k))
-                    .order("created_at", desc=False)
-                    .execute()
-                )
-                if not response.data:
-                    raise HTTPException(status_code=404, detail='No chats found')
-            chats[k] = response.data
+            chat_id = chat.get("chat_id")
+            chat_title = chat.get("chat_title", chat_id)
+            response = (
+                supabase.table("messages")
+                .select("role, content")
+                .eq("chat_id", chat_id)
+                .order("created_at", desc=False)
+                .execute()
+            )
+            if response.data:
+                chats[chat_title] = response.data
         return chats
     except Exception as e:
         raise CustomException(e, sys)
